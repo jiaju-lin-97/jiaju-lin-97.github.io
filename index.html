@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring the Universe</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between; /* This distributes space evenly */
+                align-items: center;
+                text-align: center;
+            }
+            .header {
+                font-size: 2rem;
+                margin-top: 5vh; /* Adjust this value to increase the space from the top */
+            }
+            .profile-section {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 50px; /* Adjust the gap between picture and text as needed */
+                background-image: url('.jpg'); /* Replace with your background image */
+            }
+            .profile-line {
+                height: 200px; /* Adjust based on your content */
+                width: 2px;
+                background-color: #333; /* Color of the line */
+            }
+            .profile-info {
+                display: flex;
+                max-width: 600px; /* Or any maximum width you prefer */
+                width: calc(100% - 40px); /* Adjust the width based on the padding */
+                font-size: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+            .profile-links {
+                display: flex;
+                flex-direction: row; /* Places the links side by side in a row */
+                align-items: center; /* Centers the links vertically */
+                justify-content: flex-start; /* Aligns the links to the start of the flex container */
+                gap: 20px; /* Adjust the space between the links */
+                margin-top: 15px; /* Adds space above the link row */
+            }
+            
+            .profile-links a {
+                color: blue; /* Hyperlink blue color */
+                text-decoration: underline; /* Underlines the hyperlink */
+                font-size: 1rem; /* Matching font size to the bio text */
+            }            
+            .button-container {
+                margin-bottom: 5vh; /* Adjust this value to increase the space from the bottom */
+            }
+            .full-screen-container {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
+            }
+            .works-section {
+                width: 100%;
+                padding: 20px;
+            }
+            /* Adjust the .button-container margin if necessary */
+            .button-container {
+                margin-bottom: 2rem; /* Example margin, adjust as needed */
+            }
+            .incontext-link{
+                color: blue; /* Sets the link color to blue */
+                text-decoration: underline; /* Underlines the link text */
+            }
+            /* You can add more styling for your works section here */
+            .works-section {
+                width: 100%; /* Full width of the container */
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* This centers the work items within the section */
+                padding: 20px 0; /* Top and bottom padding for the whole section */
+            }
+            
+            .work-item {
+                width: calc(100% - 40px); /* Adjust the width based on the padding */
+                max-width: 800px; /* Or any maximum width you prefer */
+                text-align: left; /* Keep the text left-aligned */
+                margin-bottom: 2rem; /* Space between work items */
+                padding: 0 20px; /* Left and right padding for each work item */
+                box-sizing: border-box; /* Include padding in the width calculation */
+                border-bottom: 1px solid #ddd; /* Optional line between items */
+            }
+             
+            .work-link {
+                color: blue; /* Sets the link color to blue */
+                text-decoration: underline; /* Underlines the link text */
+                display: inline-block; /* Displays the link as an inline block element */
+                font-size: 1rem; /* Matches the font size to your other content, if needed */
+            }
+            .abstract-content {
+                display: none; /* Initially hide the full abstract */
+                margin-top: 0; /* Optional: Adjust spacing as needed */
+                padding-left: 20px; /* Optional: Indent the abstract text */
+            }
+            
+            .abstract-title {
+                cursor: pointer; /* Changes the cursor to indicate it's clickable */
+                user-select: none; /* Prevents text selection to improve UI experience */
+            }
+            
+    </style>
+</head>
+<body>
+    <div class="full-screen-container">
+        <div class="header">
+            <h1>Jiaju Lin</h1>
+        </div>
+        <div class="profile-section">
+            <img src="path_to_your_image.jpg" alt="Profile Picture" class="rounded-full" style="width: 150px; height: 150px;"> <!-- Adjust size as needed -->
+            <div class="profile-line"></div>
+            <div class="profile-info">
+                <!-- <h1>Jiaju Lin</h1> -->
+                <div class="profile-content">
+                I am currently pursuing a Ph.D. with an interdisciplinary focus that bridges computer science and education. I am pursuing my Phd degree in Educational Psychology at Pennsylvania State University since 2023, under the mentorship of Professor
+                     Ellen Wenting Zou, and in close collaboration with Professor Qingyun Wu, my academic endeavors are centered around Large Language Models, Multi-Agent Systems, and the application of AI in educational contexts. My foundational expertise in computer science was honed at East China Normal University, where I earned my master's degree under the guidance of Professor Qin Chen.
+                </div>
+                <div class="profile-links">
+                    <a href="https://github.com/linmou" target="_blank">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=JCAH3OoAAAAJ&hl=en" target="_blank">Google Scholar</a>
+                    <a href="CV_of_Jiaju__Eng_ (1).pdf" target="_blank">CV</a>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button onclick="scrollToWork()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                View my work
+            </button>
+        </div>
+    </div>
+    <!-- Work Section -->
+    <div id="work-section" class="work-container">
+        <!-- Work Item 1 -->
+        <div class="work-item">
+            <h3 class="work-title"><strong>AgentSims: An Open-Source Sandbox for Large Language Model Evaluatio</strong>n
+            </h3>
+            <p class="authors"> <strong> Jiaju Lin </strong> , Haoran Zhao, Aochi Zhang, Yiting Wu, Huqiuyue Ping, Qin Chen</p>
+            <a class="work-link" href="https://arxiv.org/abs/2308.04026" target="_blank" > Arxiv 2023</a>
+            <p class="keywords">Keywords: LLM-driven Agents, LLM evaluation</p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content">  We suggest that task-based evaluation, where LLM agents complete tasks in a simulated environment, is a one-for-all solution to solve above problems. We present AgentSims, an easy-to-use infrastructure for researchers from all disciplines to test the specific capacities they are interested in. Researchers can build their evaluation tasks by adding agents and buildings on an interactive GUI or deploy and test new support mechanisms</p>
+        </div>
+        <!-- Work Item 2 -->
+        <div class="work-item">
+            <h3 class="work-title"><strong>  Joint Music and Language Attention Models for Zero-shot Music Tagging </strong> </h3>
+            <p class="authors">Xingjian Du, Zhesong Yu, <strong> Jiaju Lin</strong>, Bilei Zhu, Qiuqiang Kong</p>
+            <a class="work-link" href="https://arxiv.org/abs/2310.10159" target="_blank" > ICASSP 2024</a>
+            <p class="keywords">Keywords: MultiModal Learning, Music Tagging, Dataset</p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content"> In this work, we propose a zero-shot music tagging system modeled by a joint music and language attention (JMLA) model to address the open-set music tagging problem. The JMLA model consists of an audio encoder modeled by a pretrained masked autoencoder and a decoder modeled by a Falcon7B. We introduce preceiver resampler to convert arbitrary length audio into fixed length embeddings.</p>
+        </div>
+        <!-- Work Item 2 -->
+        <div class="work-item">
+            <h3 class="work-title"><strong> Educhat: A large-scale language model-based chatbot system for intelligent education </strong> </h3>
+            <p class="authors">Yuhao Dan, Zhikai Lei, Yiyang Gu, Yong Li, <strong>Jiaju Lin</strong>, Linhao Ye, Zhiyan Tie, Yougen Zhou, Yilei Wang, Aimin Zhou, Ze Zhou, Qin Chen, Jie Zhou, Liang He, Xipeng Qiu</p>
+            <a class="work-link" href="https://arxiv.org/abs/2308.02773" target="_blank" > Arxiv 2023</a>
+            <p class="keywords">Keywords: LLM, Education Instructions</p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content"> EduChat (https://www.educhat.top/) is a large-scale language model (LLM)-based chatbot system in the education domain. Its goal is to support personalized, fair, and compassionate intelligent education, serving teachers, students, and parents.</p>
+        </div>
+        <!-- Work Item 2 -->
+        <div class="work-item">
+            <h3 class="work-title"><strong> Cup: Curriculum learning based prompt tuning for implicit event argument extraction </strong> </h3>
+            <p class="authors"> <strong> Jiaju Lin </strong>, Qin Chen, Jie Zhou, Jian Jin, Liang He</p>
+            <a class="work-link" href="https://www.ijcai.org/proceedings/2022/0589.pdf" target="_blank">IJCAI 2022</a>
+            <p class="keywords">Keywords: Event Extraction, Prompt Tuning, Curriculum Learning</p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content">we propose a Curriculum learning based Prompt tuning (CUP) approach, which resolves implicit EAE by four learning stages. The stages are defined according to the relations with the trigger node in a semantic graph, which well captures the long-range dependency between arguments and the trigger. In addition, we integrate a prompt-based encoder-decoder model to elicit related knowledge from pre-trained language models (PLMs) in each stage, where the prompt templates are adapted with the learning progress to enhance the reasoning for arguments. </p>
+        </div>
+        <div class="work-item"><strong>  PoKE: A Prompt-based Knowledge Eliciting Approach for Event Argument ExtractionEliciting knowledge from language models for event extraction </strong> </h3>
+            <p class="authors"> <strong> Jiaju Lin </strong>, Qin Chen</p>
+            <a class="work-link" href="https://arxiv.org/abs/2109.05190" target="_blank" > Arxiv 2022</a>
+            <p class="keywords">Keywords: Event Extraction, Prompt Learning</p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content"> One of the first work that integrates prompt learning into event extraction. We present a novel prompt-based approach, which elicits both the independent and joint knowledge about different events for event argument extraction.</p>
+        </div>
+        
+    <script>
+        function scrollToWork() {
+            document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+    <script>
+        function toggleAbstract(element) {
+            // Find the next sibling element which is the abstract content
+            var abstractContent = element.nextElementSibling;
+        
+            // Check if the abstract is currently displayed
+            if (abstractContent.style.display === 'block') {
+                // If it's displayed, hide it and change the arrow to point down
+                abstractContent.style.display = 'none';
+                element.textContent = element.textContent.replace('▲', '▼');
+            } else {
+                // If it's hidden, show it and change the arrow to point up
+                abstractContent.style.display = 'block';
+                element.textContent = element.textContent.replace('▼', '▲');
+            }
+        }
+        
+    </script>
+</body>
+</html>
