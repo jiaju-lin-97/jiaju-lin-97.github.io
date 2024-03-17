@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage with Game of Life Background</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Ensures the canvas covers the whole page */
+  }
+  #gameOfLifeCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Sets canvas behind the content */
+  }
+</style>
+</head>
+<body>
+<canvas id="gameOfLifeCanvas"></canvas>
+<!-- Your content goes here -->
+<script src="gameOfLife.js"></script>
+</body>
+</html>

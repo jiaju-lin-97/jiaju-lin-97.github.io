@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiaju Lin, Phd in PSU</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between; /* This distributes space evenly */
+                align-items: center;
+                text-align: center;
+            }
+            #gameOfLifeCanvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1; /* Sets canvas behind the content */
+              }
+            .header {
+                font-size: 2rem;
+                margin-top: 5vh; /* Adjust this value to increase the space from the top */
+            }
+            .profile-section {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 50px; /* Adjust the gap between picture and text as needed */
+                background-image: url('.jpg'); /* Replace with your background image */
+            }
+            .profile-line {
+                height: 200px; /* Adjust based on your content */
+                width: 2px;
+                background-color: #333; /* Color of the line */
+            }
+            .profile-info {
+                display: flex;
+                max-width: 600px; /* Or any maximum width you prefer */
+                width: calc(100% - 40px); /* Adjust the width based on the padding */
+                font-size: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+            .profile-links {
+                display: flex;
+                flex-direction: row; /* Places the links side by side in a row */
+                align-items: center; /* Centers the links vertically */
+                justify-content: flex-start; /* Aligns the links to the start of the flex container */
+                gap: 20px; /* Adjust the space between the links */
+                margin-top: 15px; /* Adds space above the link row */
+            }
+            
+            .profile-links a {
+                color: blue; /* Hyperlink blue color */
+                text-decoration: underline; /* Underlines the hyperlink */
+                font-size: 1rem; /* Matching font size to the bio text */
+            }            
+            .button-container {
+                margin-bottom: 5vh; /* Adjust this value to increase the space from the bottom */
+            }
+            .full-screen-container {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
+            }
+            .works-section {
+                width: 100%;
+                padding: 20px;
+            }
+            /* Adjust the .button-container margin if necessary */
+            .button-container {
+                margin-bottom: 2rem; /* Example margin, adjust as needed */
+            }
+            .incontext-link{
+                color: blue; /* Sets the link color to blue */
+                text-decoration: underline; /* Underlines the link text */
+            }
+            /* You can add more styling for your works section here */
+            .works-section {
+                width: 100%; /* Full width of the container */
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* This centers the work items within the section */
+                padding: 20px 0; /* Top and bottom padding for the whole section */
+            }
+            
+            .work-item {
+                width: calc(100% - 40px); /* Adjust the width based on the padding */
+                max-width: 800px; /* Or any maximum width you prefer */
+                text-align: left; /* Keep the text left-aligned */
+                margin-bottom: 2rem; /* Space between work items */
+                padding: 0 20px; /* Left and right padding for each work item */
+                box-sizing: border-box; /* Include padding in the width calculation */
+                border-bottom: 1px solid #ddd; /* Optional line between items */
+            }
+             
+            .work-link {
+                color: blue; /* Sets the link color to blue */
+                text-decoration: underline; /* Underlines the link text */
+                display: inline-block; /* Displays the link as an inline block element */
+                font-size: 1rem; /* Matches the font size to your other content, if needed */
+            }
+            .abstract-content {
+                display: none; /* Initially hide the full abstract */
+                margin-top: 0; /* Optional: Adjust spacing as needed */
+                padding-left: 20px; /* Optional: Indent the abstract text */
+            }
+            
+            .abstract-title {
+                cursor: pointer; /* Changes the cursor to indicate it's clickable */
+                user-select: none; /* Prevents text selection to improve UI experience */
+            }
+            
+    </style>
+</head>
+<body>
+    <canvas id="gameOfLifeCanvas"></canvas>
+    <div class="full-screen-container">
+        <div class="header">
+            <h1>Jiaju Lin</h1>
+        </div>
+        <div class="profile-section">
+            <img src="path_to_your_image.jpg" alt="Profile Picture" class="rounded-full" style="width: 150px; height: 150px;"> <!-- Adjust size as needed -->
+            <div class="profile-line"></div>
+            <div class="profile-info">
+                <!-- <h1>Jiaju Lin</h1> -->
+                <div class="profile-content">
+                I am currently pursuing a Ph.D. degree.
+                </div>
+                <div class="profile-links">
+                    <a > fake@psu.edu </a>
+                    <a href="https://github.com/fake" target="_blank">GitHub</a>
+                    <a href="https://scholar.google.com/fake" target="_blank">Google Scholar</a>
+                    <a href="https://scholar.google.com/fake" target="_blank">CV</a>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button onclick="scrollToWork()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                View my work
+            </button>
+        </div>
+    </div>
+    <!-- Work Section -->
+    <div id="work-section" class="work-container">
+        <div class="work-item">
+            <h3 class="work-title"> [Project] <strong> A Chatbot</strong>
+            </h3>
+            <p class="authors">  A, B ,C ,D </p>
+            <p > Under Construction</p>
+            <p class="keywords">Keywords:  Reading Comprehension </p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content"> We are developing a chatbot  </p>
+        </div>
+        <div class="work-item">
+            <h3 class="work-title"> [Project]  Society driven </strong>
+            </h3>
+            <p class="authors"> <strong> Jiaju Lin </strong> , Feiwen Xiao </p>
+            <p > Under Construction</p>
+            <p class="keywords">Keywords: Learning </p>
+            <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
+            <p class="abstract-content"> We are developing a simulated town based on </p>
+        </div>
+        
+    </div>
+    <script src="gameOfLife.js"></script>
+    <script>
+        function scrollToWork() {
+            document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+    <script>
+        function toggleAbstract(element) {
+            // Find the next sibling element which is the abstract content
+            var abstractContent = element.nextElementSibling;
+        
+            // Check if the abstract is currently displayed
+            if (abstractContent.style.display === 'block') {
+                // If it's displayed, hide it and change the arrow to point down
+                abstractContent.style.display = 'none';
+                element.textContent = element.textContent.replace('▲', '▼');
+            } else {
+                // If it's hidden, show it and change the arrow to point up
+                abstractContent.style.display = 'block';
+                element.textContent = element.textContent.replace('▼', '▲');
+            }
+        }
+        
+    </script>
+</body>
+</html>
