@@ -186,6 +186,47 @@
                 position: relative;
             }
             
+            .game-info {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(240, 248, 255, 0.85);
+                padding: 15px;
+                border-radius: 15px;
+                max-width: 300px;
+                text-align: left;
+                font-size: 0.9rem;
+                z-index: 2;
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border: 1px solid rgba(200, 225, 255, 0.4);
+                box-shadow: 0 0 20px rgba(200, 225, 255, 0.2);
+                transition: opacity 0.3s ease;
+                opacity: 0.7;
+            }
+
+            .game-info:hover {
+                opacity: 1;
+            }
+
+            .game-info h4 {
+                font-weight: bold;
+                margin-bottom: 8px;
+                color: #2563eb;
+            }
+
+            .game-info p {
+                margin-bottom: 8px;
+                line-height: 1.4;
+            }
+
+            .game-info .quote {
+                font-style: italic;
+                border-left: 3px solid rgba(59, 130, 246, 0.5);
+                padding-left: 10px;
+                margin: 8px 0;
+            }
+            
     </style>
 </head>
 <body>
@@ -331,6 +372,8 @@
                 this.canvas = canvas;
                 this.ctx = canvas.getContext('2d');
                 this.cellSize = 10;
+                this.stagnantCount = 0;
+                this.lastGridState = '';
                 this.resize();
                 this.initGrid();
                 window.addEventListener('resize', () => this.resize());
@@ -349,6 +392,29 @@
                 );
             }
 
+            addRandomDisturbance() {
+                const disturbanceCount = Math.floor(this.rows * this.cols * 0.01); // Disturb 1% of cells
+                for (let i = 0; i < disturbanceCount; i++) {
+                    const row = Math.floor(Math.random() * this.rows);
+                    const col = Math.floor(Math.random() * this.cols);
+                    this.grid[row][col] = Math.random() > 0.5;
+                }
+            }
+
+            checkStagnation() {
+                const currentState = JSON.stringify(this.grid);
+                if (currentState === this.lastGridState) {
+                    this.stagnantCount++;
+                    if (this.stagnantCount > 1) { // If stagnant for 1 frames
+                        this.addRandomDisturbance();
+                        this.stagnantCount = 0;
+                    }
+                } else {
+                    this.stagnantCount = 0;
+                }
+                this.lastGridState = currentState;
+            }
+
             update() {
                 const newGrid = Array(this.rows).fill().map(() => Array(this.cols).fill(false));
                 
@@ -364,6 +430,7 @@
                 }
                 
                 this.grid = newGrid;
+                this.checkStagnation();
             }
 
             countNeighbors(row, col) {
@@ -383,10 +450,17 @@
                 this.ctx.fillStyle = '#000';
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 
-                this.ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+                // Use a slightly different blue color for variety
+                const baseHue = 210; // Blue hue
+                
                 for (let i = 0; i < this.rows; i++) {
                     for (let j = 0; j < this.cols; j++) {
                         if (this.grid[i][j]) {
+                            // Vary the color slightly based on position
+                            const hue = (baseHue + Math.sin(i * 0.1) * 10) % 360;
+                            const saturation = 70 + Math.cos(j * 0.1) * 10;
+                            this.ctx.fillStyle = `hsla(${hue}, ${saturation}%, 60%, 0.5)`;
+                            
                             this.ctx.fillRect(
                                 j * this.cellSize,
                                 i * this.cellSize,
@@ -411,5 +485,12 @@
         game.animate();
 
     </script>
+    <div class="game-info">
+        <h4>Game of Life</h4>
+        <div class="quote">
+            "The Game of Life is not just a game - it's a perfect demonstration of how complex life-like behaviors can emerge from simple mathematical rules."
+            <br>- John Conway
+        </div>
+    </div>
 </body>
 </html>
