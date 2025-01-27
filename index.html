@@ -402,17 +402,34 @@
             }
 
             checkStagnation() {
-                const currentState = JSON.stringify(this.grid);
-                if (currentState === this.lastGridState) {
-                    this.stagnantCount++;
-                    if (this.stagnantCount > 1) { // If stagnant for 1 frames
-                        this.addRandomDisturbance();
+                const currentState = this.grid;
+                if (this.lastGridState) {
+                    let changedCells = 0;
+                    const totalCells = this.rows * this.cols;
+                    
+                    // Count changed cells
+                    for (let i = 0; i < this.rows; i++) {
+                        for (let j = 0; j < this.cols; j++) {
+                            if (currentState[i][j] !== this.lastGridState[i][j]) {
+                                changedCells++;
+                            }
+                        }
+                    }
+                    
+                    // If less than 10% cells changed
+                    if (changedCells / totalCells < 0.04) {
+                        this.stagnantCount++;
+                        if (this.stagnantCount > 70) {
+                            this.addRandomDisturbance();
+                            this.stagnantCount = 0;
+                        }
+                    } else {
                         this.stagnantCount = 0;
                     }
-                } else {
-                    this.stagnantCount = 0;
                 }
-                this.lastGridState = currentState;
+                
+                // Create a deep copy of current state for next comparison
+                this.lastGridState = currentState.map(row => [...row]);
             }
 
             update() {
