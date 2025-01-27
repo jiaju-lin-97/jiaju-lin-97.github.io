@@ -190,17 +190,13 @@
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                background: rgba(240, 248, 255, 0.85);
                 padding: 15px;
                 border-radius: 15px;
-                max-width: 300px;
+                max-width: 400px;  /* 增加最大宽度 */
                 text-align: left;
-                font-size: 0.9rem;
+                font-size: 1.1rem;  /* 放大字体 */
                 z-index: 2;
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                border: 1px solid rgba(200, 225, 255, 0.4);
-                box-shadow: 0 0 20px rgba(200, 225, 255, 0.2);
+                color: white;  /* 改为白色字体 */
                 transition: opacity 0.3s ease;
                 opacity: 0.7;
             }
@@ -212,7 +208,8 @@
             .game-info h4 {
                 font-weight: bold;
                 margin-bottom: 8px;
-                color: #2563eb;
+                color: white;  /* 标题也改为白色 */
+                font-size: 1.3rem;  /* 标题字体放大 */
             }
 
             .game-info p {
@@ -222,7 +219,7 @@
 
             .game-info .quote {
                 font-style: italic;
-                border-left: 3px solid rgba(59, 130, 246, 0.5);
+                border-left: 3px solid rgba(255, 255, 255, 0.5);  /* 引用线改为半透明白色 */
                 padding-left: 10px;
                 margin: 8px 0;
             }
