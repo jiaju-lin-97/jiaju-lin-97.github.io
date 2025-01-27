@@ -15,17 +15,34 @@
                 justify-content: space-between; /* This distributes space evenly */
                 align-items: center;
                 text-align: center;
+                background: #000; /* Dark background for Game of Life */
             }
             .header {
                 font-size: 2rem;
                 margin-top: 5vh; /* Adjust this value to increase the space from the top */
+                color: white; /* Make header visible against dark background */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             }
             .profile-section {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 50px; /* Adjust the gap between picture and text as needed */
-                background-image: url('.jpg'); /* Replace with your background image */
+                gap: 50px;
+                background: rgba(240, 248, 255, 0.85);  /* Changed to very light blue (aliceblue) */
+                padding: 3rem;
+                border-radius: 25px;
+                margin: 20px;
+                box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);  /* Adjusted shadow color */
+                position: relative;
+                z-index: 2;
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border: 1px solid rgba(200, 225, 255, 0.4);  /* Adjusted border color */
+                transition: all 0.3s ease;
+            }
+            .profile-section:hover {
+                box-shadow: 0 0 60px rgba(200, 225, 255, 0.3);
+                transform: translateY(-2px);
             }
             .profile-line {
                 height: 200px; /* Adjust based on your content */
@@ -58,6 +75,8 @@
                 margin-bottom: 5vh; /* Adjust this value to increase the space from the bottom */
             }
             .full-screen-container {
+                position: relative;
+                z-index: 1;
                 height: 100vh;
                 display: flex;
                 flex-direction: column;
@@ -86,16 +105,45 @@
                 padding: 20px 0; /* Top and bottom padding for the whole section */
             }
             
-            .work-item {
-                width: calc(100% - 40px); /* Adjust the width based on the padding */
-                max-width: 800px; /* Or any maximum width you prefer */
-                text-align: left; /* Keep the text left-aligned */
-                margin-bottom: 2rem; /* Space between work items */
-                padding: 0 20px; /* Left and right padding for each work item */
-                box-sizing: border-box; /* Include padding in the width calculation */
-                border-bottom: 1px solid #ddd; /* Optional line between items */
+            .work-container {
+                background: rgba(240, 248, 255, 0.85);  /* Matching profile section */
+                padding: 3rem;
+                border-radius: 25px;
+                margin: 20px;
+                box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
+                position: relative;
+                z-index: 2;
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                width: 90%;
+                max-width: 1200px;
+                border: 1px solid rgba(200, 225, 255, 0.4);
             }
-             
+            
+            .work-item {
+                width: 100%;
+                max-width: 800px;
+                text-align: left;
+                margin-bottom: 2rem;
+                padding: 25px;
+                box-sizing: border-box;
+                border-bottom: 1px solid rgba(100, 149, 237, 0.1);  /* Cornflower blue with low opacity */
+                background: rgba(240, 248, 255, 0.5);  /* Lighter background for items */
+                border-radius: 15px;
+                transition: all 0.3s ease;
+                border: 1px solid rgba(200, 225, 255, 0.5);
+            }
+            
+            .work-item:hover {
+                background: rgba(240, 248, 255, 0.7);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(100, 149, 237, 0.1);
+            }
+            
+            .work-item:last-child {
+                border-bottom: none;
+            }
+            
             .work-link {
                 color: blue; /* Sets the link color to blue */
                 text-decoration: underline; /* Underlines the link text */
@@ -103,19 +151,45 @@
                 font-size: 1rem; /* Matches the font size to your other content, if needed */
             }
             .abstract-content {
-                display: none; /* Initially hide the full abstract */
-                margin-top: 0; /* Optional: Adjust spacing as needed */
-                padding-left: 20px; /* Optional: Indent the abstract text */
+                display: none;
+                margin-top: 10px;
+                padding: 15px;
+                background: rgba(240, 248, 255, 0.6);
+                border-radius: 10px;
+                border-left: 3px solid rgba(59, 130, 246, 0.5);
             }
             
             .abstract-title {
-                cursor: pointer; /* Changes the cursor to indicate it's clickable */
-                user-select: none; /* Prevents text selection to improve UI experience */
+                cursor: pointer;
+                user-select: none;
+                padding: 5px 10px;
+                border-radius: 5px;
+                transition: background-color 0.2s ease;
+            }
+            
+            .abstract-title:hover {
+                background-color: rgba(59, 130, 246, 0.1);
+            }
+            
+            #gameCanvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+            }
+            
+            .button-container button {
+                background: rgba(59, 130, 246, 0.9);
+                z-index: 2;
+                position: relative;
             }
             
     </style>
 </head>
 <body>
+    <canvas id="gameCanvas"></canvas>
     <div class="full-screen-container">
         <div class="header">
             <h1>Jiaju Lin</h1>
@@ -128,9 +202,15 @@
                 <div class="profile-content">
                 I am currently pursuing a Ph.D. with an interdisciplinary focus that bridges computer science and education. I am pursuing my Phd degree in Educational Psychology at Pennsylvania State University since 2023, under the mentorship of 
                 <a class="incontext-link" href="https://ed.psu.edu/directory/dr-wenting-zou" target="_blank"> Prof. Ellen Wenting Zou </a>  , and in close collaboration with 
-                <a class="incontext-link", href="https://qingyun-wu.github.io/", target="_blank"> Prof. Qingyun Wu </a> , my academic endeavors are centered around Large Language Models, Multi-Agent Systems, and the application of AI in educational contexts. My foundational expertise in computer science was honed at 
+                <a class="incontext-link", href="https://qingyun-wu.github.io/", target="_blank"> Prof. Qingyun Wu </a>.  My foundational expertise in computer science was honed at 
                 East China Normal University, where I earned my M.S. in Computer Science under the guidance of 
                 <a class="incontext-link", href="https://faculty.ecnu.edu.cn/_s16/cq2_21262/main.psp", target="_blank"> Prof. Qin Chen </a> .
+                <br>
+                My academic endeavors are centered around 
+                <br><strong>Large Language Models</strong>, 
+                <strong>Multi-Agent Systems</strong>,
+                <strong>AI in educational contexts</strong>.
+
                 </div>
                 <div class="profile-links">
                     <a > jjl7137@psu.edu </a>
@@ -243,6 +323,93 @@
             }
         }
         
+    </script>
+    <script>
+        // Game of Life implementation
+        class GameOfLife {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.cellSize = 10;
+                this.resize();
+                this.initGrid();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.cols = Math.floor(this.canvas.width / this.cellSize);
+                this.rows = Math.floor(this.canvas.height / this.cellSize);
+            }
+
+            initGrid() {
+                this.grid = Array(this.rows).fill().map(() => 
+                    Array(this.cols).fill().map(() => Math.random() > 0.85)
+                );
+            }
+
+            update() {
+                const newGrid = Array(this.rows).fill().map(() => Array(this.cols).fill(false));
+                
+                for (let i = 0; i < this.rows; i++) {
+                    for (let j = 0; j < this.cols; j++) {
+                        const neighbors = this.countNeighbors(i, j);
+                        if (this.grid[i][j]) {
+                            newGrid[i][j] = neighbors === 2 || neighbors === 3;
+                        } else {
+                            newGrid[i][j] = neighbors === 3;
+                        }
+                    }
+                }
+                
+                this.grid = newGrid;
+            }
+
+            countNeighbors(row, col) {
+                let count = 0;
+                for (let i = -1; i <= 1; i++) {
+                    for (let j = -1; j <= 1; j++) {
+                        if (i === 0 && j === 0) continue;
+                        const newRow = (row + i + this.rows) % this.rows;
+                        const newCol = (col + j + this.cols) % this.cols;
+                        if (this.grid[newRow][newCol]) count++;
+                    }
+                }
+                return count;
+            }
+
+            draw() {
+                this.ctx.fillStyle = '#000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+                for (let i = 0; i < this.rows; i++) {
+                    for (let j = 0; j < this.cols; j++) {
+                        if (this.grid[i][j]) {
+                            this.ctx.fillRect(
+                                j * this.cellSize,
+                                i * this.cellSize,
+                                this.cellSize - 1,
+                                this.cellSize - 1
+                            );
+                        }
+                    }
+                }
+            }
+
+            animate() {
+                this.update();
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize Game of Life
+        const canvas = document.getElementById('gameCanvas');
+        const game = new GameOfLife(canvas);
+        game.animate();
+
     </script>
 </body>
 </html>
