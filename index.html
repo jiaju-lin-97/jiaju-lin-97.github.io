@@ -1,287 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jiaju Lin, Phd in PSU</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
     <style>
-            body, html {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between; /* This distributes space evenly */
-                align-items: center;
-                text-align: center;
-                background: #000; /* Dark background for Game of Life */
-            }
-            .header {
-                font-size: 1.5rem;
-                margin-top: 3vh;
-                padding: 0 10px;
-                color: white; /* Make header visible against dark background */
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* This distributes space evenly */
+            align-items: center;
+            text-align: center;
+            background: #000;
+            /* Dark background for Game of Life */
+        }
+
+        .header {
+            font-size: 1.5rem;
+            margin-top: 3vh;
+            padding: 0 10px;
+            color: white;
+            /* Make header visible against dark background */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            /* Stack items vertically on mobile */
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(240, 248, 255, 0.85);
+            padding: 2rem;
+            border-radius: 25px;
+            margin: 10px;
+            box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(200, 225, 255, 0.4);
+            transition: all 0.3s ease;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .profile-section:hover {
+            box-shadow: 0 0 60px rgba(200, 225, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .profile-line {
+            height: 200px;
+            /* Adjust based on your content */
+            width: 2px;
+            background-color: #333;
+            /* Color of the line */
+        }
+
+        .profile-info {
+            display: flex;
+            max-width: 600px;
+            /* Or any maximum width you prefer */
+            width: calc(100% - 40px);
+            /* Adjust the width based on the padding */
+            font-size: 1rem;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-links {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow links to wrap on small screens */
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .profile-links a {
+            color: blue;
+            /* Hyperlink blue color */
+            text-decoration: underline;
+            /* Underlines the hyperlink */
+            font-size: 1rem;
+            /* Matching font size to the bio text */
+        }
+
+        .button-container {
+            margin-bottom: 5vh;
+            /* Adjust this value to increase the space from the bottom */
+        }
+
+        .full-screen-container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+
+        .works-section {
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Adjust the .button-container margin if necessary */
+        .button-container {
+            margin-bottom: 2rem;
+            /* Example margin, adjust as needed */
+        }
+
+        .incontext-link {
+            color: blue;
+            /* Sets the link color to blue */
+            text-decoration: underline;
+            /* Underlines the link text */
+        }
+
+        /* You can add more styling for your works section here */
+        .works-section {
+            width: 100%;
+            /* Full width of the container */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* This centers the work items within the section */
+            padding: 20px 0;
+            /* Top and bottom padding for the whole section */
+        }
+
+        .work-container {
+            background: rgba(240, 248, 255, 0.85);
+            /* Matching profile section */
+            padding: 1rem;
+            border-radius: 25px;
+            margin: 10px;
+            box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            width: 95%;
+            max-width: 1200px;
+            border: 1px solid rgba(200, 225, 255, 0.4);
+        }
+
+        .work-item {
+            width: 100%;
+            max-width: 800px;
+            text-align: left;
+            margin-bottom: 1rem;
+            padding: 15px;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(100, 149, 237, 0.1);
+            /* Cornflower blue with low opacity */
+            background: rgba(240, 248, 255, 0.5);
+            /* Lighter background for items */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(200, 225, 255, 0.5);
+        }
+
+        .work-item:hover {
+            background: rgba(240, 248, 255, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 149, 237, 0.1);
+        }
+
+        .work-item:last-child {
+            border-bottom: none;
+        }
+
+        .work-link {
+            color: blue;
+            /* Sets the link color to blue */
+            text-decoration: underline;
+            /* Underlines the link text */
+            display: inline-block;
+            /* Displays the link as an inline block element */
+            font-size: 1rem;
+            /* Matches the font size to your other content, if needed */
+        }
+
+        .abstract-content {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(240, 248, 255, 0.6);
+            border-radius: 10px;
+            border-left: 3px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .abstract-title {
+            cursor: pointer;
+            user-select: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .abstract-title:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        #gameCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .button-container button {
+            background: rgba(59, 130, 246, 0.9);
+            z-index: 2;
+            position: relative;
+        }
+
+        .game-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 15px;
+            border-radius: 15px;
+            max-width: 90%;
+            text-align: left;
+            font-size: 0.9rem;
+            z-index: 2;
+            color: white;
+            /* 改为白色字体 */
+            transition: opacity 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .game-info:hover {
+            opacity: 1;
+        }
+
+        .game-info h4 {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: white;
+            /* 标题也改为白色 */
+            font-size: 1.3rem;
+            /* 标题字体放大 */
+        }
+
+        .game-info p {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .game-info .quote {
+            font-style: italic;
+            border-left: 3px solid rgba(255, 255, 255, 0.5);
+            /* 引用线改为半透明白色 */
+            padding-left: 10px;
+            margin: 8px 0;
+        }
+
+        .animation-toggle {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .animation-toggle:hover {
+            background: rgba(59, 130, 246, 0.5);
+        }
+
+        .animation-toggle.paused {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .animation-toggle.paused:hover {
+            background: rgba(239, 68, 68, 0.5);
+        }
+
+        /* Add media query for larger screens */
+        @media (min-width: 768px) {
             .profile-section {
-                display: flex;
-                flex-direction: column; /* Stack items vertically on mobile */
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-                background: rgba(240, 248, 255, 0.85);
-                padding: 2rem;
-                border-radius: 25px;
-                margin: 10px;
-                box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
-                position: relative;
-                z-index: 2;
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                border: 1px solid rgba(200, 225, 255, 0.4);
-                transition: all 0.3s ease;
-                width: 90%;
-                max-width: 800px;
+                flex-direction: row;
+                padding: 3rem;
             }
-            .profile-section:hover {
-                box-shadow: 0 0 60px rgba(200, 225, 255, 0.3);
-                transform: translateY(-2px);
+
+            .header {
+                font-size: 2rem;
+                margin-top: 5vh;
             }
-            .profile-line {
-                height: 200px; /* Adjust based on your content */
-                width: 2px;
-                background-color: #333; /* Color of the line */
-            }
-            .profile-info {
-                display: flex;
-                max-width: 600px; /* Or any maximum width you prefer */
-                width: calc(100% - 40px); /* Adjust the width based on the padding */
-                font-size: 1rem;
-                flex-direction: column;
-                align-items: center;
-            }
-            .profile-links {
-                display: flex;
-                flex-wrap: wrap; /* Allow links to wrap on small screens */
-                justify-content: center;
-                gap: 15px;
-                margin-top: 15px;
-            }
-            
-            .profile-links a {
-                color: blue; /* Hyperlink blue color */
-                text-decoration: underline; /* Underlines the hyperlink */
-                font-size: 1rem; /* Matching font size to the bio text */
-            }            
-            .button-container {
-                margin-bottom: 5vh; /* Adjust this value to increase the space from the bottom */
-            }
-            .full-screen-container {
-                position: relative;
-                z-index: 1;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                text-align: center;
-            }
-            .works-section {
-                width: 100%;
-                padding: 20px;
-            }
-            /* Adjust the .button-container margin if necessary */
-            .button-container {
-                margin-bottom: 2rem; /* Example margin, adjust as needed */
-            }
-            .incontext-link{
-                color: blue; /* Sets the link color to blue */
-                text-decoration: underline; /* Underlines the link text */
-            }
-            /* You can add more styling for your works section here */
-            .works-section {
-                width: 100%; /* Full width of the container */
-                display: flex;
-                flex-direction: column;
-                align-items: center; /* This centers the work items within the section */
-                padding: 20px 0; /* Top and bottom padding for the whole section */
-            }
-            
-            .work-container {
-                background: rgba(240, 248, 255, 0.85);  /* Matching profile section */
-                padding: 1rem;
-                border-radius: 25px;
-                margin: 10px;
-                box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
-                position: relative;
-                z-index: 2;
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                width: 95%;
-                max-width: 1200px;
-                border: 1px solid rgba(200, 225, 255, 0.4);
-            }
-            
-            .work-item {
-                width: 100%;
-                max-width: 800px;
-                text-align: left;
-                margin-bottom: 1rem;
-                padding: 15px;
-                box-sizing: border-box;
-                border-bottom: 1px solid rgba(100, 149, 237, 0.1);  /* Cornflower blue with low opacity */
-                background: rgba(240, 248, 255, 0.5);  /* Lighter background for items */
-                border-radius: 15px;
-                transition: all 0.3s ease;
-                border: 1px solid rgba(200, 225, 255, 0.5);
-            }
-            
-            .work-item:hover {
-                background: rgba(240, 248, 255, 0.7);
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(100, 149, 237, 0.1);
-            }
-            
-            .work-item:last-child {
-                border-bottom: none;
-            }
-            
-            .work-link {
-                color: blue; /* Sets the link color to blue */
-                text-decoration: underline; /* Underlines the link text */
-                display: inline-block; /* Displays the link as an inline block element */
-                font-size: 1rem; /* Matches the font size to your other content, if needed */
-            }
-            .abstract-content {
-                display: none;
-                margin-top: 10px;
-                padding: 15px;
-                background: rgba(240, 248, 255, 0.6);
-                border-radius: 10px;
-                border-left: 3px solid rgba(59, 130, 246, 0.5);
-            }
-            
-            .abstract-title {
-                cursor: pointer;
-                user-select: none;
-                padding: 5px 10px;
-                border-radius: 5px;
-                transition: background-color 0.2s ease;
-            }
-            
-            .abstract-title:hover {
-                background-color: rgba(59, 130, 246, 0.1);
-            }
-            
-            #gameCanvas {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 0;
-            }
-            
-            .button-container button {
-                background: rgba(59, 130, 246, 0.9);
-                z-index: 2;
-                position: relative;
-            }
-            
+
             .game-info {
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-                padding: 15px;
-                border-radius: 15px;
-                max-width: 90%;
-                text-align: left;
-                font-size: 0.9rem;
-                z-index: 2;
-                color: white;  /* 改为白色字体 */
-                transition: opacity 0.3s ease;
-                opacity: 0.7;
+                max-width: 400px;
+                font-size: 1.1rem;
+                right: 20px;
+                bottom: 20px;
             }
 
-            .game-info:hover {
-                opacity: 1;
+            .work-container {
+                padding: 3rem;
+                margin: 20px;
+                width: 90%;
             }
 
-            .game-info h4 {
-                font-weight: bold;
-                margin-bottom: 8px;
-                color: white;  /* 标题也改为白色 */
-                font-size: 1.3rem;  /* 标题字体放大 */
-            }
-
-            .game-info p {
-                margin-bottom: 8px;
-                line-height: 1.4;
-            }
-
-            .game-info .quote {
-                font-style: italic;
-                border-left: 3px solid rgba(255, 255, 255, 0.5);  /* 引用线改为半透明白色 */
-                padding-left: 10px;
-                margin: 8px 0;
-            }
-            
-            /* Add media query for larger screens */
-            @media (min-width: 768px) {
-                .profile-section {
-                    flex-direction: row;
-                    padding: 3rem;
-                }
-                .header {
-                    font-size: 2rem;
-                    margin-top: 5vh;
-                }
-                .game-info {
-                    max-width: 400px;
-                    font-size: 1.1rem;
-                    right: 20px;
-                    bottom: 20px;
-                }
-                .work-container {
-                    padding: 3rem;
-                    margin: 20px;
-                    width: 90%;
-                }
-                img.rounded-full {
-                    width: 150px;
-                    height: 150px;
-                }
-            }
-            
-            /* Make text more readable on mobile */
-            .profile-content {
-                font-size: 0.9rem;
-                line-height: 1.6;
-                text-align: center;
-            }
-
-            @media (min-width: 768px) {
-                .profile-content {
-                    font-size: 1rem;
-                    text-align: left;
-                }
-            }
-            
-            /* Make profile image responsive */
             img.rounded-full {
-                width: 120px;
-                height: 120px;
+                width: 150px;
+                height: 150px;
             }
+        }
 
-            @media (min-width: 768px) {
-                img.rounded-full {
-                    width: 150px;
-                    height: 150px;
-                }
+        /* Make text more readable on mobile */
+        .profile-content {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .profile-content {
+                font-size: 1rem;
+                text-align: left;
             }
+        }
+
+        /* Make profile image responsive */
+        img.rounded-full {
+            width: 120px;
+            height: 120px;
+        }
+
+        @media (min-width: 768px) {
+            img.rounded-full {
+                width: 150px;
+                height: 150px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <canvas id="gameCanvas"></canvas>
     <div class="full-screen-container">
@@ -294,107 +369,155 @@
             <div class="profile-info">
                 <!-- <h1>Jiaju Lin</h1> -->
                 <div class="profile-content">
-                I am currently pursuing a Ph.D. with an interdisciplinary focus that bridges computer science and education. I am pursuing my Phd degree in Educational Psychology at Pennsylvania State University since 2023, under the mentorship of 
-                <a class="incontext-link" href="https://ed.psu.edu/directory/dr-wenting-zou" target="_blank"> Prof. Ellen Wenting Zou </a>  , and in close collaboration with 
-                <a class="incontext-link", href="https://qingyun-wu.github.io/", target="_blank"> Prof. Qingyun Wu </a>.  My foundational expertise in computer science was honed at 
-                East China Normal University, where I earned my M.S. in Computer Science under the guidance of 
-                <a class="incontext-link", href="https://faculty.ecnu.edu.cn/_s16/cq2_21262/main.psp", target="_blank"> Prof. Qin Chen </a> .
-                <br>
-                My academic endeavors are centered around 
-                <br><strong>Large Language Models</strong>, 
-                <strong>Multi-Agent Systems</strong>,
-                <strong>AI in educational contexts</strong>.
+                    I am currently pursuing a Ph.D. with an interdisciplinary focus that bridges computer science and
+                    education. I am pursuing my Phd degree in Educational Psychology at Pennsylvania State University
+                    since 2023, under the mentorship of
+                    <a class="incontext-link" href="https://ed.psu.edu/directory/dr-wenting-zou" target="_blank"> Prof.
+                        Ellen Wenting Zou </a> , and in close collaboration with
+                    <a class="incontext-link" , href="https://qingyun-wu.github.io/" , target="_blank"> Prof. Qingyun Wu
+                    </a>. My foundational expertise in computer science was honed at
+                    East China Normal University, where I earned my M.S. in Computer Science under the guidance of
+                    <a class="incontext-link" , href="https://faculty.ecnu.edu.cn/_s16/cq2_21262/main.psp" ,
+                        target="_blank"> Prof. Qin Chen </a> .
+                    <br>
+                    My academic endeavors are centered around
+                    <br><strong>Large Language Models</strong>,
+                    <strong>Multi-Agent Systems</strong>,
+                    <strong>AI in educational contexts</strong>.
 
                 </div>
                 <div class="profile-links">
-                    <a > jjl7137@psu.edu </a>
+                    <a> jjl7137@psu.edu </a>
                     <a href="https://github.com/linmou" target="_blank">GitHub</a>
-                    <a href="https://scholar.google.com/citations?user=JCAH3OoAAAAJ&hl=en" target="_blank">Google Scholar</a>
+                    <a href="https://scholar.google.com/citations?user=JCAH3OoAAAAJ&hl=en" target="_blank">Google
+                        Scholar</a>
                     <a href="CV_of_Jiaju__Eng_ (1).pdf" target="_blank">CV</a>
+                    <a href="blog.html">Blog</a>
                 </div>
             </div>
         </div>
         <div class="button-container">
-            <button onclick="scrollToWork()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button onclick="scrollToWork()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 View my work
             </button>
+            <a href="blog.html"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block ml-4">
+                Read my blog
+            </a>
         </div>
     </div>
     <!-- Work Section -->
     <div id="work-section" class="work-container">
         <div class="work-item">
-            <h3 class="work-title"> [Project] <strong>PandaReading: A Chatbot that Facilitates Constructive Children-Parents Interaction in Reading</strong>
+            <h3 class="work-title"> <strong>Storio: A Chatbot that Facilitates Constructive Children-Parents Interaction
+                    in Reading</strong>
             </h3>
-            <p class="authors"> <strong> Jiaju Lin </strong> , Feiwen Xiao, Zhaohui Li</p>
-            <p > Under Construction</p>
+            <p class="authors"> Feiwen Xiao <strong> Jiaju Lin </strong> , Zhaohui Li</p>
+            <p> Under Review</p>
             <p class="keywords">Keywords: AI4Edu, LLM, Children-Parents Interaction, Reading Comprehension </p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content"> We are developing a chatbot to improve the children-parents interaction quality when they are reading a story book together.  </p>
+            <p class="abstract-content"> We are developing a chatbot to improve the children-parents interaction quality
+                when they are reading a story book together. </p>
         </div>
         <div class="work-item">
-            <h3 class="work-title"> [Project] <strong> Emotional Town: A Simulated Society driven by Language Modesl as An Immersive Environment for Social Emotional Training </strong>
+            <h3 class="work-title"> <strong> Co-Designing an AI-based Multi-Agent Simulation to Combat Bullying among
+                    Teens </strong>
             </h3>
-            <p class="authors"> <strong> Jiaju Lin </strong> , Feiwen Xiao </p>
-            <p > Under Construction</p>
+            <p class="authors"> <strong> Jiaju Lin </strong> , Feiwen Xiao , Ellen Wenting Zou</p>
+            <p> Under Review</p>
             <p class="keywords">Keywords: AI4Edu, LLM Agents, Social Emotional Learning </p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content"> We are developing a simulated town based on AgentSims as a learning platform for social emotional skills like emotion recognition and management. </p>
+            <p class="abstract-content"> We collaborated with K-12 teachers to co-design a multi-agent anti-bullying
+                system powered by large language models (LLMs). This system simulates authentic scenarios, enabling
+                students to develop anti-bully skills. </p>
         </div>
-        <!-- Work Item 1 --> 
+        <!-- Work Item 1 -->
         <div class="work-item">
-            <h3 class="work-title"><strong>ByteComposer: a Human-like Melody Composition Method based on Language Model Agent
-            </strong>
+            <h3 class="work-title"><strong>ByteComposer: a Human-like Melody Composition Method based on Language Model
+                    Agent
+                </strong>
             </h3>
             <p class="authors"> Xia Liang, <strong> Jiaju Lin </strong> , Xingjian Du</p>
-            <a class="work-link" href="https://arxiv.org/abs/2402.17785v1" target="_blank" > Arxiv 2024</a>
+            <a class="work-link" href="https://arxiv.org/abs/2402.17785v1" target="_blank"> Arxiv 2024</a>
             <p class="keywords">Keywords: MultiModal Learning, Machine Music Composition, LMM Agent </p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content"> We propose ByteComposer, an agent framework emulating a human's creative pipeline in four separate steps : "Conception Analysis - Draft Composition - Self-Evaluation and Modification - Aesthetic Selection". This framework seamlessly blends the interactive and knowledge-understanding features of LLMs with existing symbolic music generation models, thereby achieving a melody composition agent comparable to human creators. We conduct extensive experiments on GPT4 and several open-source large language models, which substantiate our framework's effectiveness.</p>
+            <p class="abstract-content"> We propose ByteComposer, an agent framework emulating a human's creative
+                pipeline in four separate steps : "Conception Analysis - Draft Composition - Self-Evaluation and
+                Modification - Aesthetic Selection". This framework seamlessly blends the interactive and
+                knowledge-understanding features of LLMs with existing symbolic music generation models, thereby
+                achieving a melody composition agent comparable to human creators. We conduct extensive experiments on
+                GPT4 and several open-source large language models, which substantiate our framework's effectiveness.
+            </p>
         </div>
         <div class="work-item">
-            <h3 class="work-title"><strong>AgentSims: An Open-Source Sandbox for Large Language Model Evaluation</strong>
+            <h3 class="work-title"><strong>AgentSims: An Open-Source Sandbox for Large Language Model
+                    Evaluation</strong>
             </h3>
-            <p class="authors"> <strong> Jiaju Lin </strong> , Haoran Zhao, Aochi Zhang, Yiting Wu, Huqiuyue Ping, Qin Chen</p>
-            <a class="work-link" href="https://arxiv.org/abs/2308.04026" target="_blank" > Arxiv 2023</a>
+            <p class="authors"> <strong> Jiaju Lin </strong> , Haoran Zhao, Aochi Zhang, Yiting Wu, Huqiuyue Ping, Qin
+                Chen</p>
+            <a class="work-link" href="https://arxiv.org/abs/2308.04026" target="_blank"> Arxiv 2023</a>
             <p class="keywords">Keywords: LLM-driven Agents, LLM evaluation</p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content">  We suggest that task-based evaluation, where LLM agents complete tasks in a simulated environment, is a one-for-all solution to solve above problems. We present AgentSims, an easy-to-use infrastructure for researchers from all disciplines to test the specific capacities they are interested in. Researchers can build their evaluation tasks by adding agents and buildings on an interactive GUI or deploy and test new support mechanisms</p>
+            <p class="abstract-content"> We suggest that task-based evaluation, where LLM agents complete tasks in a
+                simulated environment, is a one-for-all solution to solve above problems. We present AgentSims, an
+                easy-to-use infrastructure for researchers from all disciplines to test the specific capacities they are
+                interested in. Researchers can build their evaluation tasks by adding agents and buildings on an
+                interactive GUI or deploy and test new support mechanisms</p>
         </div>
         <!-- Work Item 2 -->
         <div class="work-item">
-            <h3 class="work-title"><strong>  Joint Music and Language Attention Models for Zero-shot Music Tagging </strong> </h3>
+            <h3 class="work-title"><strong> Joint Music and Language Attention Models for Zero-shot Music Tagging
+                </strong> </h3>
             <p class="authors">Xingjian Du, Zhesong Yu, <strong> Jiaju Lin</strong>, Bilei Zhu, Qiuqiang Kong</p>
-            <a class="work-link" href="https://arxiv.org/abs/2310.10159" target="_blank" > ICASSP 2024</a>
+            <a class="work-link" href="https://arxiv.org/abs/2310.10159" target="_blank"> ICASSP 2024</a>
             <p class="keywords">Keywords: MultiModal Learning, Music Tagging, Dataset</p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content"> In this work, we propose a zero-shot music tagging system modeled by a joint music and language attention (JMLA) model to address the open-set music tagging problem. The JMLA model consists of an audio encoder modeled by a pretrained masked autoencoder and a decoder modeled by a Falcon7B. We introduce preceiver resampler to convert arbitrary length audio into fixed length embeddings.</p>
+            <p class="abstract-content"> In this work, we propose a zero-shot music tagging system modeled by a joint
+                music and language attention (JMLA) model to address the open-set music tagging problem. The JMLA model
+                consists of an audio encoder modeled by a pretrained masked autoencoder and a decoder modeled by a
+                Falcon7B. We introduce preceiver resampler to convert arbitrary length audio into fixed length
+                embeddings.</p>
         </div>
         <!-- Work Item 2 -->
         <div class="work-item">
-            <h3 class="work-title"><strong> Educhat: A large-scale language model-based chatbot system for intelligent education </strong> </h3>
-            <p class="authors">Yuhao Dan, Zhikai Lei, Yiyang Gu, Yong Li, <strong>Jiaju Lin</strong>, Linhao Ye, Zhiyan Tie, Yougen Zhou, Yilei Wang, Aimin Zhou, Ze Zhou, Qin Chen, Jie Zhou, Liang He, Xipeng Qiu</p>
-            <a class="work-link" href="https://arxiv.org/abs/2308.02773" target="_blank" > Arxiv 2023</a>
+            <h3 class="work-title"><strong> Educhat: A large-scale language model-based chatbot system for intelligent
+                    education </strong> </h3>
+            <p class="authors">Yuhao Dan, Zhikai Lei, Yiyang Gu, Yong Li, <strong>Jiaju Lin</strong>, Linhao Ye, Zhiyan
+                Tie, Yougen Zhou, Yilei Wang, Aimin Zhou, Ze Zhou, Qin Chen, Jie Zhou, Liang He, Xipeng Qiu</p>
+            <a class="work-link" href="https://arxiv.org/abs/2308.02773" target="_blank"> Arxiv 2023</a>
             <p class="keywords">Keywords: LLM, Education Instructions</p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content"> EduChat (https://www.educhat.top/) is a large-scale language model (LLM)-based chatbot system in the education domain. Its goal is to support personalized, fair, and compassionate intelligent education, serving teachers, students, and parents.</p>
+            <p class="abstract-content"> EduChat (https://www.educhat.top/) is a large-scale language model (LLM)-based
+                chatbot system in the education domain. Its goal is to support personalized, fair, and compassionate
+                intelligent education, serving teachers, students, and parents.</p>
         </div>
         <!-- Work Item 2 -->
         <div class="work-item">
-            <h3 class="work-title"><strong> Cup: Curriculum learning based prompt tuning for implicit event argument extraction </strong> </h3>
+            <h3 class="work-title"><strong> Cup: Curriculum learning based prompt tuning for implicit event argument
+                    extraction </strong> </h3>
             <p class="authors"> <strong> Jiaju Lin </strong>, Qin Chen, Jie Zhou, Jian Jin, Liang He</p>
             <a class="work-link" href="https://www.ijcai.org/proceedings/2022/0589.pdf" target="_blank">IJCAI 2022</a>
             <p class="keywords">Keywords: Event Extraction, Prompt Tuning, Curriculum Learning</p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content">we propose a Curriculum learning based Prompt tuning (CUP) approach, which resolves implicit EAE by four learning stages. The stages are defined according to the relations with the trigger node in a semantic graph, which well captures the long-range dependency between arguments and the trigger. In addition, we integrate a prompt-based encoder-decoder model to elicit related knowledge from pre-trained language models (PLMs) in each stage, where the prompt templates are adapted with the learning progress to enhance the reasoning for arguments. </p>
+            <p class="abstract-content">we propose a Curriculum learning based Prompt tuning (CUP) approach, which
+                resolves implicit EAE by four learning stages. The stages are defined according to the relations with
+                the trigger node in a semantic graph, which well captures the long-range dependency between arguments
+                and the trigger. In addition, we integrate a prompt-based encoder-decoder model to elicit related
+                knowledge from pre-trained language models (PLMs) in each stage, where the prompt templates are adapted
+                with the learning progress to enhance the reasoning for arguments. </p>
         </div>
-        <div class="work-item"><strong>  PoKE: A Prompt-based Knowledge Eliciting Approach for Event Argument ExtractionEliciting knowledge from language models for event extraction </strong> </h3>
+        <div class="work-item"><strong> PoKE: A Prompt-based Knowledge Eliciting Approach for Event Argument
+                ExtractionEliciting knowledge from language models for event extraction </strong> </h3>
             <p class="authors"> <strong> Jiaju Lin </strong>, Qin Chen</p>
-            <a class="work-link" href="https://arxiv.org/abs/2109.05190" target="_blank" > Arxiv 2022</a>
+            <a class="work-link" href="https://arxiv.org/abs/2109.05190" target="_blank"> Arxiv 2022</a>
             <p class="keywords">Keywords: Event Extraction, Prompt Learning</p>
             <p class="abstract-title" onclick="toggleAbstract(this)">▼ Abstract:</p>
-            <p class="abstract-content"> One of the first work that integrates prompt learning into event extraction. We present a novel prompt-based approach, which elicits both the independent and joint knowledge about different events for event argument extraction.</p>
-            </div>
+            <p class="abstract-content"> One of the first work that integrates prompt learning into event extraction. We
+                present a novel prompt-based approach, which elicits both the independent and joint knowledge about
+                different events for event argument extraction.</p>
         </div>
+    </div>
     <script>
         function scrollToWork() {
             document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
@@ -404,7 +527,7 @@
         function toggleAbstract(element) {
             // Find the next sibling element which is the abstract content
             var abstractContent = element.nextElementSibling;
-        
+
             // Check if the abstract is currently displayed
             if (abstractContent.style.display === 'block') {
                 // If it's displayed, hide it and change the arrow to point down
@@ -416,151 +539,22 @@
                 element.textContent = element.textContent.replace('▼', '▲');
             }
         }
-        
     </script>
-    <script>
-        // Game of Life implementation
-        class GameOfLife {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.cellSize = 10;
-                this.stagnantCount = 0;
-                this.lastGridState = '';
-                this.resize();
-                this.initGrid();
-                window.addEventListener('resize', () => this.resize());
-            }
 
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-                this.cols = Math.floor(this.canvas.width / this.cellSize);
-                this.rows = Math.floor(this.canvas.height / this.cellSize);
-            }
+    <!-- Include the GameOfLife class -->
+    <script src="gameOfLife.js"></script>
 
-            initGrid() {
-                this.grid = Array(this.rows).fill().map(() => 
-                    Array(this.cols).fill().map(() => Math.random() > 0.85)
-                );
-            }
-
-            addRandomDisturbance() {
-                const disturbanceCount = Math.floor(this.rows * this.cols * 0.01); // Disturb 1% of cells
-                for (let i = 0; i < disturbanceCount; i++) {
-                    const row = Math.floor(Math.random() * this.rows);
-                    const col = Math.floor(Math.random() * this.cols);
-                    this.grid[row][col] = Math.random() > 0.5;
-                }
-            }
-
-            checkStagnation() {
-                const currentState = this.grid;
-                if (this.lastGridState) {
-                    let changedCells = 0;
-                    const totalCells = this.rows * this.cols;
-                    
-                    // Count changed cells
-                    for (let i = 0; i < this.rows; i++) {
-                        for (let j = 0; j < this.cols; j++) {
-                            if (currentState[i][j] !== this.lastGridState[i][j]) {
-                                changedCells++;
-                            }
-                        }
-                    }
-                    
-                    // If less than 10% cells changed
-                    if (changedCells / totalCells < 0.04) {
-                        this.stagnantCount++;
-                        if (this.stagnantCount > 70) {
-                            this.addRandomDisturbance();
-                            this.stagnantCount = 0;
-                        }
-                    } else {
-                        this.stagnantCount = 0;
-                    }
-                }
-                
-                // Create a deep copy of current state for next comparison
-                this.lastGridState = currentState.map(row => [...row]);
-            }
-
-            update() {
-                const newGrid = Array(this.rows).fill().map(() => Array(this.cols).fill(false));
-                
-                for (let i = 0; i < this.rows; i++) {
-                    for (let j = 0; j < this.cols; j++) {
-                        const neighbors = this.countNeighbors(i, j);
-                        if (this.grid[i][j]) {
-                            newGrid[i][j] = neighbors === 2 || neighbors === 3;
-                        } else {
-                            newGrid[i][j] = neighbors === 3;
-                        }
-                    }
-                }
-                
-                this.grid = newGrid;
-                this.checkStagnation();
-            }
-
-            countNeighbors(row, col) {
-                let count = 0;
-                for (let i = -1; i <= 1; i++) {
-                    for (let j = -1; j <= 1; j++) {
-                        if (i === 0 && j === 0) continue;
-                        const newRow = (row + i + this.rows) % this.rows;
-                        const newCol = (col + j + this.cols) % this.cols;
-                        if (this.grid[newRow][newCol]) count++;
-                    }
-                }
-                return count;
-            }
-
-            draw() {
-                this.ctx.fillStyle = '#000';
-                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                // Use a slightly different blue color for variety
-                const baseHue = 210; // Blue hue
-                
-                for (let i = 0; i < this.rows; i++) {
-                    for (let j = 0; j < this.cols; j++) {
-                        if (this.grid[i][j]) {
-                            // Vary the color slightly based on position
-                            const hue = (baseHue + Math.sin(i * 0.1) * 10) % 360;
-                            const saturation = 70 + Math.cos(j * 0.1) * 10;
-                            this.ctx.fillStyle = `hsla(${hue}, ${saturation}%, 60%, 0.5)`;
-                            
-                            this.ctx.fillRect(
-                                j * this.cellSize,
-                                i * this.cellSize,
-                                this.cellSize - 1,
-                                this.cellSize - 1
-                            );
-                        }
-                    }
-                }
-            }
-
-            animate() {
-                this.update();
-                this.draw();
-                requestAnimationFrame(() => this.animate());
-            }
-        }
-
-        // Initialize Game of Life
-        const canvas = document.getElementById('gameCanvas');
-        const game = new GameOfLife(canvas);
-        game.animate();
-
-    </script>
     <div class="game-info">
         <h4>Game of Life</h4>
         <div class="quote">
-            "The Game of Life is not just a game - it's a perfect demonstration of how complex life-like behaviors can emerge from simple mathematical rules."
+            "The Game of Life is not just a game - it's a perfect demonstration of how complex life-like behaviors can
+            emerge from simple mathematical rules."
             <br>- John Conway
         </div>
+        <button id="toggleAnimation" class="animation-toggle">
+            Pause Animation
+        </button>
     </div>
 </body>
+
 </html>
