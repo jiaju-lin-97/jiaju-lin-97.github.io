@@ -194,9 +194,16 @@ async function loadBlogPostsFromFiles() {
         // Load each blog file
         for (const file of blogFiles) {
             try {
-                console.log(`Loading blog post from ${file.path}...`);
+                console.log(`Attempting to load blog post from ${file.path}...`);
+                console.log(`Current window location: ${window.location.href}`);
+                const absolutePath = new URL(file.path, window.location.href).href;
+                console.log(`Resolved absolute URL: ${absolutePath}`);
+
                 // Fetch the blog post content
                 const response = await fetch(file.path);
+                console.log(`Fetch response status: ${response.status}`);
+                console.log(`Fetch response headers:`, Object.fromEntries([...response.headers]));
+
                 if (!response.ok) {
                     console.error(`Failed to load blog post from ${file.path}: ${response.status} ${response.statusText}`);
                     continue;
