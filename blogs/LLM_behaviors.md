@@ -1,5 +1,5 @@
 ---
-title: LLM Emotional Behaviors
+title: LLM Emotional Decisions
 date: Feburary 11, 2025
 tags: AI, LLM, Behavioral Science, Emotion
 ---
