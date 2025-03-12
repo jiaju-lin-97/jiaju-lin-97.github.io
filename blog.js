@@ -182,7 +182,7 @@ async function loadBlogPostsFromFiles() {
     try {
         // List of blog post files to load (you can add more as needed)
         const blogFiles = [
-            { path: 'blogs/LLM_behaviors.md', type: 'markdown' }
+            { path: 'build/LLM_behaviors.html', type: 'html', originalPath: 'blogs/LLM_behaviors.md' }
             // You can add more blog posts here
         ];
 
@@ -212,13 +212,13 @@ async function loadBlogPostsFromFiles() {
                 const content = await response.text();
                 let blogPost;
 
-                if (file.type === 'markdown') {
-                    blogPost = await convertMarkdownToBlogPost(content, file.path);
-                } else {
-                    // Handle HTML files as before
-                    const tempContainer = document.createElement('div');
-                    tempContainer.innerHTML = content;
-                    blogPost = tempContainer.querySelector('.blog-post');
+                if (file.type === 'html') {
+                    // Parse the HTML content
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, 'text/html');
+                    blogPost = doc.querySelector('.blog-post');
+                } else if (file.type === 'markdown') {
+                    blogPost = await convertMarkdownToBlogPost(content, file.originalPath || file.path);
                 }
 
                 if (!blogPost) {
@@ -227,7 +227,7 @@ async function loadBlogPostsFromFiles() {
                 }
 
                 // Create a preview item for the blog list
-                const previewItem = createBlogPreview(blogPost, file.path);
+                const previewItem = createBlogPreview(blogPost, file.originalPath || file.path);
                 blogList.appendChild(previewItem);
 
                 // Store the full blog post content

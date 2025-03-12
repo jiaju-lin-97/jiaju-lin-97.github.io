@@ -1,0 +1,12 @@
+{
+    "name": "jiaju-lin-97.github.io",
+    "version": "1.0.0",
+    "description": "Personal blog website",
+    "main": "blog.js",
+    "scripts": {
+        "build": "node build.js"
+    },
+    "dependencies": {
+        "marked": "^4.3.0"
+    }
+}
