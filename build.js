@@ -8,6 +8,22 @@ if (!fs.existsSync(buildDir)) {
     fs.mkdirSync(buildDir);
 }
 
+// Configure marked with custom renderer for images
+const renderer = new marked.Renderer();
+
+// Override image rendering to handle paths
+renderer.image = function (href, title, text) {
+    // If the image path is relative (doesn't start with http/https)
+    if (href && !/^https?:\/\//i.test(href)) {
+        // Clean up the href path
+        href = href.replace(/^\.\//, '').replace(/^\//, '');
+        // Prepend the blogs directory
+        href = `blogs/${href}`;
+    }
+
+    return `<img src="${href}" alt="${text || ''}" ${title ? `title="${title}"` : ''} class="blog-image">`;
+};
+
 // Configure marked
 marked.use({
     gfm: true,
@@ -17,7 +33,8 @@ marked.use({
     headerPrefix: 'heading-',
     smartLists: true,
     smartypants: true,
-    xhtml: true
+    xhtml: true,
+    renderer: renderer
 });
 
 // Function to convert markdown to HTML
