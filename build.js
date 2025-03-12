@@ -65,6 +65,145 @@ function convertMarkdownToHtml(markdownContent, filePath) {
     const postId = path.basename(filePath, '.md');
     return `<!DOCTYPE html>
 <div class="blog-post" id="blog-${postId}">
+    <style>
+        /* Markdown Typography */
+        .blog-content h1 { font-size: 2.5em; font-weight: 700; margin: 1.5em 0 0.5em; color: #2d3748; }
+        .blog-content h2 { font-size: 2em; font-weight: 600; margin: 1.4em 0 0.4em; color: #2d3748; }
+        .blog-content h3 { font-size: 1.75em; font-weight: 600; margin: 1.3em 0 0.4em; color: #2d3748; }
+        .blog-content h4 { font-size: 1.5em; font-weight: 500; margin: 1.2em 0 0.4em; color: #2d3748; }
+        .blog-content h5 { font-size: 1.25em; font-weight: 500; margin: 1.1em 0 0.4em; color: #2d3748; }
+        .blog-content h6 { font-size: 1.1em; font-weight: 500; margin: 1em 0 0.4em; color: #2d3748; }
+        
+        /* Paragraph and text formatting */
+        .blog-content p { 
+            margin: 1em 0; 
+            line-height: 1.7;
+            color: #4a5568;
+        }
+        .blog-content strong { 
+            font-weight: 600; 
+            color: #2d3748;
+        }
+        .blog-content em { 
+            font-style: italic; 
+        }
+        
+        /* Lists */
+        .blog-content ul, .blog-content ol { 
+            margin: 1em 0; 
+            padding-left: 2em;
+            color: #4a5568;
+        }
+        .blog-content li { 
+            margin: 0.5em 0;
+            line-height: 1.6;
+        }
+        .blog-content ul li { list-style-type: disc; }
+        .blog-content ol li { list-style-type: decimal; }
+        
+        /* Blockquotes */
+        .blog-content blockquote {
+            border-left: 4px solid #cbd5e0;
+            padding: 0.5em 1em;
+            margin: 1em 0;
+            background: #f7fafc;
+            color: #4a5568;
+            font-style: italic;
+        }
+        
+        /* Code blocks */
+        .blog-content code {
+            background: #f7fafc;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #d53f8c;
+        }
+        
+        .blog-content pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        
+        .blog-content pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        /* Links */
+        .blog-content a {
+            color: #4299e1;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        
+        .blog-content a:hover {
+            border-bottom-color: currentColor;
+        }
+        
+        /* Tables */
+        .blog-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+        
+        .blog-content th, .blog-content td {
+            border: 1px solid #e2e8f0;
+            padding: 0.5em 1em;
+            text-align: left;
+        }
+        
+        .blog-content th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        
+        /* Horizontal Rule */
+        .blog-content hr {
+            border: none;
+            border-top: 2px solid #e2e8f0;
+            margin: 2em 0;
+        }
+        
+        /* Images */
+        .blog-content img.blog-image {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5em auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .blog-content img.blog-image:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Task Lists */
+        .blog-content input[type="checkbox"] {
+            margin-right: 0.5em;
+        }
+        
+        /* Footnotes */
+        .blog-content .footnotes {
+            margin-top: 2em;
+            padding-top: 1em;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9em;
+            color: #718096;
+        }
+    </style>
     <h2 class="blog-title">${metadata.title || 'Untitled Post'}</h2>
     <p class="blog-date">${metadata.date || new Date().toLocaleDateString()}</p>
     <div class="blog-content">${htmlContent}</div>
