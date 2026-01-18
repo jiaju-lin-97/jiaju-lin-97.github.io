@@ -18,17 +18,20 @@
             /* This distributes space evenly */
             align-items: center;
             text-align: center;
-            background: #000;
-            /* Dark background for Game of Life */
+            background: #fffef5;
+            /* Warm cream background for fall theme */
+            color: #3e2723;
+            /* Dark brown text */
         }
 
         .header {
             font-size: 1.5rem;
             margin-top: 3vh;
             padding: 0 10px;
-            color: white;
-            /* Make header visible against dark background */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #3e2723;
+            /* Dark brown text for fall theme */
+            text-shadow: 1px 1px 2px rgba(218, 165, 32, 0.2);
+            /* Subtle golden glow */
         }
 
         .profile-section {
@@ -38,23 +41,27 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            background: rgba(240, 248, 255, 0.85);
+            background: rgba(255, 250, 235, 0.85);
+            /* Light cream */
             padding: 2rem;
             border-radius: 25px;
             margin: 10px;
-            box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
+            box-shadow: 0 0 50px rgba(255, 193, 7, 0.2);
+            /* Golden glow */
             position: relative;
             z-index: 2;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(200, 225, 255, 0.4);
+            border: 1px solid rgba(218, 165, 32, 0.4);
+            /* Golden border */
             transition: all 0.3s ease;
             width: 90%;
             max-width: 800px;
         }
 
         .profile-section:hover {
-            box-shadow: 0 0 60px rgba(200, 225, 255, 0.3);
+            box-shadow: 0 0 60px rgba(255, 193, 7, 0.3);
+            /* Stronger golden glow */
             transform: translateY(-2px);
         }
 
@@ -62,8 +69,8 @@
             height: 200px;
             /* Adjust based on your content */
             width: 2px;
-            background-color: #333;
-            /* Color of the line */
+            background-color: rgba(218, 165, 32, 0.4);
+            /* Golden amber divider */
         }
 
         .profile-info {
@@ -87,12 +94,18 @@
         }
 
         .profile-links a {
-            color: blue;
-            /* Hyperlink blue color */
+            color: hsl(35, 75%, 45%);
+            /* Warm amber links */
             text-decoration: underline;
             /* Underlines the hyperlink */
             font-size: 1rem;
             /* Matching font size to the bio text */
+            transition: color 0.2s ease;
+        }
+
+        .profile-links a:hover {
+            color: hsl(35, 80%, 35%);
+            /* Darker amber on hover */
         }
 
         .button-container {
@@ -123,10 +136,16 @@
         }
 
         .incontext-link {
-            color: blue;
-            /* Sets the link color to blue */
+            color: hsl(35, 75%, 45%);
+            /* Warm amber links */
             text-decoration: underline;
             /* Underlines the link text */
+            transition: color 0.2s ease;
+        }
+
+        .incontext-link:hover {
+            color: hsl(35, 80%, 35%);
+            /* Darker amber on hover */
         }
 
         /* You can add more styling for your works section here */
@@ -142,19 +161,21 @@
         }
 
         .work-container {
-            background: rgba(240, 248, 255, 0.85);
-            /* Matching profile section */
+            background: rgba(255, 252, 245, 0.9);
+            /* Light warm cream */
             padding: 1rem;
             border-radius: 25px;
             margin: 10px;
-            box-shadow: 0 0 50px rgba(200, 225, 255, 0.2);
+            box-shadow: 0 0 50px rgba(255, 193, 7, 0.15);
+            /* Golden glow */
             position: relative;
             z-index: 2;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             width: 95%;
             max-width: 1200px;
-            border: 1px solid rgba(200, 225, 255, 0.4);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            /* Golden border */
         }
 
         .work-item {
@@ -164,19 +185,22 @@
             margin-bottom: 1rem;
             padding: 15px;
             box-sizing: border-box;
-            border-bottom: 1px solid rgba(100, 149, 237, 0.1);
-            /* Cornflower blue with low opacity */
-            background: rgba(240, 248, 255, 0.5);
-            /* Lighter background for items */
+            border-bottom: 1px solid rgba(218, 165, 32, 0.1);
+            /* Golden border */
+            background: rgba(255, 255, 255, 0.6);
+            /* Warm white */
             border-radius: 15px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(200, 225, 255, 0.5);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            /* Golden border */
         }
 
         .work-item:hover {
-            background: rgba(240, 248, 255, 0.7);
+            background: rgba(255, 245, 220, 0.7);
+            /* Light golden tint */
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(100, 149, 237, 0.1);
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.2);
+            /* Golden shadow */
         }
 
         .work-item:last-child {
@@ -184,23 +208,31 @@
         }
 
         .work-link {
-            color: blue;
-            /* Sets the link color to blue */
+            color: hsl(35, 75%, 45%);
+            /* Warm amber links */
             text-decoration: underline;
             /* Underlines the link text */
             display: inline-block;
             /* Displays the link as an inline block element */
             font-size: 1rem;
             /* Matches the font size to your other content, if needed */
+            transition: color 0.2s ease;
+        }
+
+        .work-link:hover {
+            color: hsl(35, 80%, 35%);
+            /* Darker amber on hover */
         }
 
         .abstract-content {
             display: none;
             margin-top: 10px;
             padding: 15px;
-            background: rgba(240, 248, 255, 0.6);
+            background: rgba(255, 250, 240, 0.6);
+            /* Light cream */
             border-radius: 10px;
-            border-left: 3px solid rgba(59, 130, 246, 0.5);
+            border-left: 3px solid rgba(218, 165, 32, 0.6);
+            /* Golden accent border */
         }
 
         .abstract-title {
@@ -212,7 +244,8 @@
         }
 
         .abstract-title:hover {
-            background-color: rgba(59, 130, 246, 0.1);
+            background-color: rgba(218, 165, 32, 0.15);
+            /* Light golden hover */
         }
 
         #gameCanvas {
@@ -225,76 +258,138 @@
         }
 
         .button-container button {
-            background: rgba(59, 130, 246, 0.9);
+            background: rgba(218, 165, 32, 0.9);
+            /* Golden amber button */
             z-index: 2;
             position: relative;
+            transition: background 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background: hsl(43, 74%, 40%);
+            /* Darker golden on hover */
         }
 
         .game-info {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            padding: 15px;
-            border-radius: 15px;
-            max-width: 90%;
-            text-align: left;
+            bottom: 20px;
+            right: 20px;
+            padding: 8px;
+            /* Minimal padding */
+            border-radius: 50px;
+            /* Pill shape */
+            text-align: right;
+            /* Align content to right */
             font-size: 0.9rem;
             z-index: 2;
-            color: white;
-            /* 改为白色字体 */
-            transition: opacity 0.3s ease;
-            opacity: 0.7;
+            color: #3e2723;
+            /* Dark brown text */
+            background: rgba(255, 250, 235, 0.9);
+            /* Cream background */
+            border: 1px solid rgba(218, 165, 32, 0.5);
+            /* Golden border */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(218, 165, 32, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            width: auto;
+            max-width: 50px;
+            /* Collapsed width */
+            height: 50px;
+            /* Collapsed height */
+            overflow: hidden;
+            cursor: pointer;
         }
 
         .game-info:hover {
-            opacity: 1;
+            max-width: 300px;
+            /* Expanded width */
+            height: auto;
+            /* Expanded height */
+            padding: 20px;
+            border-radius: 20px;
+            /* Box shape on hover */
+            align-items: flex-start;
+            /* Align text left on hover */
+            text-align: left;
         }
 
         .game-info h4 {
             font-weight: bold;
             margin-bottom: 8px;
-            color: white;
-            /* 标题也改为白色 */
-            font-size: 1.3rem;
-            /* 标题字体放大 */
+            color: #3e2723;
+            font-size: 1.1rem;
+            display: none;
+            /* Hidden by default */
+            white-space: nowrap;
+        }
+
+        .game-info:hover h4 {
+            display: block;
+            /* Show on hover */
         }
 
         .game-info p {
             margin-bottom: 8px;
             line-height: 1.4;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .game-info:hover p {
+            display: block;
         }
 
         .game-info .quote {
             font-style: italic;
-            border-left: 3px solid rgba(255, 255, 255, 0.5);
-            /* 引用线改为半透明白色 */
+            border-left: 3px solid rgba(218, 165, 32, 0.6);
             padding-left: 10px;
             margin: 8px 0;
+            display: none;
+            /* Hidden by default */
+            font-size: 0.85rem;
+        }
+
+        .game-info:hover .quote {
+            display: block;
         }
 
         .animation-toggle {
-            margin-top: 10px;
-            padding: 8px 16px;
-            background: rgba(59, 130, 246, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            border-radius: 8px;
+            margin-top: 5px;
+            padding: 8px 12px;
+            background: transparent;
+            /* Transparent default */
+            border: none;
+            color: #3e2723;
+            /* Dark brown text */
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
+            /* Icon size */
+            width: auto;
+            /* Auto width */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Show full button on hover */
+        .game-info:hover .animation-toggle {
+            margin-top: 10px;
             width: 100%;
+            background: rgba(255, 193, 7, 0.25);
+            border: 1px solid rgba(218, 165, 32, 0.5);
+            border-radius: 8px;
+            font-size: 0.9rem;
         }
 
         .animation-toggle:hover {
-            background: rgba(59, 130, 246, 0.5);
+            color: hsl(35, 80%, 35%);
         }
 
-        .animation-toggle.paused {
-            background: rgba(239, 68, 68, 0.3);
-        }
-
-        .animation-toggle.paused:hover {
-            background: rgba(239, 68, 68, 0.5);
+        .game-info:hover .animation-toggle:hover {
+            background: rgba(255, 193, 7, 0.4);
         }
 
         /* Add media query for larger screens */
@@ -396,11 +491,11 @@
         </div>
         <div class="button-container">
             <button onclick="scrollToWork()"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                 View my work
             </button>
             <a href="blog.html"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block ml-4">
+                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-block ml-4">
                 Read my blog
             </a>
         </div>

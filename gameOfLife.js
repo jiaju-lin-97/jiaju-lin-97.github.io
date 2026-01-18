@@ -7,6 +7,8 @@ class GameOfLife {
         this.lastGridState = '';
         this.isAnimating = true; // Start with animation enabled
         this.animationFrame = null; // Track animation frame
+        this.lastUpdateTime = 0; // Track last update time for frame limiting
+        this.frameDelay = 800; // Delay between updates in ms (slower = calmer)
         this.resize();
         this.initGrid();
         window.addEventListener('resize', () => this.resize());
@@ -144,19 +146,20 @@ class GameOfLife {
     }
 
     draw() {
-        this.ctx.fillStyle = '#000';
+        this.ctx.fillStyle = '#fffef5'; // Warm cream background
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Use a slightly different blue color for variety
-        const baseHue = 210; // Blue hue
+        // Use golden yellow/amber color for fall theme
+        const baseHue = 45; // Golden yellow hue
 
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
                 if (this.grid[i][j]) {
-                    // Vary the color slightly based on position
-                    const hue = (baseHue + Math.sin(i * 0.1) * 10) % 360;
-                    const saturation = 70 + Math.cos(j * 0.1) * 10;
-                    this.ctx.fillStyle = `hsla(${hue}, ${saturation}%, 60%, 0.5)`;
+                    // Vary the color slightly based on position for subtle variety
+                    const hue = (baseHue + Math.sin(i * 0.1) * 15) % 360; // Range: 30-60 (yellow to amber)
+                    const saturation = 70 + Math.cos(j * 0.1) * 15; // 55-85% saturation
+                    const lightness = 55 + Math.sin((i + j) * 0.05) * 10; // 45-65% lightness (warm tones)
+                    this.ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.4)`; // Slightly transparent
 
                     this.ctx.fillRect(
                         j * this.cellSize,
@@ -169,15 +172,23 @@ class GameOfLife {
         }
     }
 
-    animate() {
+    animate(currentTime = 0) {
         if (!this.isAnimating) {
             this.animationFrame = null;
             return;
         }
 
-        this.update();
-        this.draw();
-        this.animationFrame = requestAnimationFrame(() => this.animate());
+        // Only update if enough time has passed (frame rate limiting)
+        if (currentTime - this.lastUpdateTime >= this.frameDelay) {
+            this.update();
+            this.draw();
+            this.lastUpdateTime = currentTime;
+        } else {
+            // Still draw even if not updating to maintain smooth rendering
+            this.draw();
+        }
+
+        this.animationFrame = requestAnimationFrame((time) => this.animate(time));
     }
 }
 
